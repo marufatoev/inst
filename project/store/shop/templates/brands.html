@@ -1,0 +1,19 @@
+<aside class="menu has-background-primary-light p-4 has-text-centered" style="height: 750px; border-radius: 10px">
+    <p class="menu-label is-size-3" style="font-family: Aldhabi">
+        Бренды
+    </p>
+    <ul class="menu-list">
+        {% for brand in brands %}
+        <li>
+            <a href="{% url 'shop:home' %}?brand={{ brand.pk }}" class="navbar-item" >
+                <span class="title is-4 " style="font-family: Calibri">{{brand}}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</aside>
+
+
+
+
+

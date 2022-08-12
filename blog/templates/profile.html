@@ -1,0 +1,153 @@
+{% extends "profile_base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <div class="profile">
+
+        <div class="profile-image">
+
+            <img style="height: 45%;width: 45%;margin-left: 15%; margin-bottom: 10%; "
+                src="{{ profile.profile_picture.url }}" alt="">
+
+        </div>
+
+        <div class="profile-user-settings">
+
+            <h2 class="title is-1">{{ profile.user }}</h2>
+
+            {% if user in profile.followers.all %}
+            <div class="lower">
+                <a href="/follow/{{profile.id}}/{{username}}" class="text-center btn btn-light text-dark" id="like">
+                    unfollow
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <div id="post">
+            <a href="/profile/{{profile.id}}">
+                <h4 id="post_user" style="font-weight: 900">
+                    <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog"
+                            aria-hidden="true"></i></button>
+        </div>
+        <div class="lower">
+            <a href="/follow/{{profile.id}}/{{username}}" class="text-center btn btn-danger" id="like">
+                Follow
+            </a>
+        </div>
+        {% endif %}
+
+        <div class="profile-stats">
+            <br>
+            <ul>
+                <li><span class="profile-stat-count">{{ post_num }}</span> Публикаций</li>
+                <li><span class="profile-stat-count">{{ profile.followers.count }}</span>Подписчиков </li>
+                <li><span class="profile-stat-count">{{ profile.followings.count }}</span> Подписки</li>
+            </ul>
+
+        </div>
+
+        <div class="profile-bio">
+            <br>
+            <!-- <p>🖥Курсы по:
+
+            </p> -->
+
+        </div>
+
+    </div>
+    <!-- End of profile section -->
+
+
+</div>
+<!-- End of container -->
+
+</header>
+<br><br>
+<main>
+    <br>
+    <div class="container">
+
+        <div class="gallery">
+            {% for article in articles %}
+            <a href="{% url 'blog:article_detail' article.pk %}">
+                <div class="gallery-item" tabindex="0">
+
+                    <img src="{{ article.thumb.url }}" class="gallery-image" alt="">
+
+                    <div class="gallery-item-info">
+
+                        <ul>
+                            <li class="gallery-item-likes"><span class="visually-hidden">Лайки:</span><i
+                                    class="fas fa-heart" aria-hidden="true"></i> {{ article.total_likes }}</li>
+                            <li class="gallery-item-comments"><span class="visually-hidden">Комменты:</span><i
+                                    class="fas fa-comment" aria-hidden="true">{{ article.total_comment }}</i> </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </a>
+            {% endfor %}
+            <!-- End of gallery -->
+            <div class="loader"></div>
+
+        </div>
+        <!-- End of container -->
+
+</main>
+
+
+
+<!-- <section class="section">
+    <div class="container">
+        <div class="tabs is-centered">
+            <ul>
+                <li class="is-active">
+                    <a>Posts</a>
+                </li>
+                <li>
+                    <a>Saved</a>
+                </li>
+
+            </ul>
+        </div>
+        
+        <div class="columns is-mobile is-centered is-multiline">
+            <div class="column ">
+                <div class="">
+                    <figure class="image is-264x264">
+                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                    </figure>
+                </div>
+            </div>
+
+
+            <div class="column ">
+                <div class="">
+                    <figure class="image is-264x264">
+                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                    </figure>
+                </div>
+            </div>
+
+
+            <div class="column ">
+                <div class="">
+                    <figure class="image is-264x264">
+                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                    </figure>
+                </div>
+            </div>
+
+
+            <div class="column">
+                <div class="">
+                    <figure class="image is-264x264">
+                        <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                    </figure>
+                </div>
+            </div>
+        </div> -->
+
+{% endblock %}

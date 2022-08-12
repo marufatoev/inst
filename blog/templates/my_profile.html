@@ -1,0 +1,179 @@
+{% extends "profile_base.html" %}
+
+{% block content %}
+<div class="container">
+
+    <div class="profile">
+
+        <div class="profile-image">
+
+            <img style="height: 45%;width: 45%;margin-left: 15%; margin-bottom: 10%; "
+                src="{{ profile.profile_picture.url }}" alt="">
+
+        </div>
+
+        <div class="profile-user-settings">
+
+            <h2 class="profile-user-name">{{ profile.user }}</h2>
+
+            <button class="btn profile-edit-btn  ">Редактировать профиль</button>
+
+            <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog"
+                    aria-hidden="true"></i></button>
+
+        </div>
+
+        <div class="profile-stats">
+            <br>
+            <ul>
+                <li><span class="profile-stat-count">{{ post_num }}</span> Публикаций</li>
+                <li><span class="profile-stat-count">{{ profile.followers.count }}</span>Подписчиков </li>
+                <li><span class="profile-stat-count">{{ profile.followings.count }}</span> Подписки</li>
+            </ul>
+
+        </div>
+
+        <div class="profile-bio">
+            <br>
+            <!-- <p>🖥Курсы по:
+
+            </p> -->
+
+        </div>
+
+    </div>
+    <!-- End of profile section -->
+
+
+</div>
+<!-- End of container -->
+
+</header>
+<br><br>
+<main>
+    <br>
+    <div class="container">
+
+        <div class="gallery">
+            {% for article in articles %}
+            <a href="{% url 'blog:article_detail' article.pk %}">
+                <div class="gallery-item" tabindex="0">
+
+                    <img src="{{ article.thumb.url }}" class="gallery-image" alt="">
+
+                    <div class="gallery-item-info">
+
+                        <ul>
+                            <li class="gallery-item-likes"><span class="visually-hidden">Лайки:</span><i
+                                    class="fas fa-heart" aria-hidden="true"></i> {{ article.total_likes }}</li>
+                            <li class="gallery-item-comments"><span class="visually-hidden">Комменты:</span><i
+                                    class="fas fa-comment" aria-hidden="true">{{ article.total_comment }}</i> </li>
+                        </ul>
+
+                    </div>
+
+                </div>
+            </a>
+            {% endfor %}
+            <!-- End of gallery -->
+            <div class="loader"></div>
+
+        </div>
+        <!-- End of container -->
+
+</main>
+{% endblock %}
+
+
+
+
+<!-- bulma_profile style -->
+
+<!-- <section class="section">
+    <div class="container">
+        <div class="columns is-multiline">
+            <div class="column" style="left: 15%;">
+                <div class="" style="
+                padding-left: 80px;
+                padding-bottom: 15px;
+            ">
+                    <figure class="image is-128x128 ">
+                        <img class="is-rounded" src="{{ profile.profile_picture.url }}">
+                    </figure>
+                </div>
+            </div>
+
+            <div class="column is-two-fifths">
+                <h1 class="title is-3">{{ profile.user }}</h1>
+            </div>
+
+
+            <div class="column is-4 ">
+                <a href="users:edit_profile" class="title button is-5 is-light"> Edit profile</a>
+                <div class="button is-light is-5 title">Follow</div>
+            </div>
+
+            <div class="column is-6 mb-6 ml-6" style="margin-left: 100px; padding-left: 50px; margin-bottom: 50px;">
+                <div class="content">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="title"> {{ post_num }} <br><span class="subtitle">Posts</span></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column" style="margin-right: 70px;">
+                <div class="content">
+                    <div class="level-item has-text-centered">
+                        <div>
+                            <p class="title">{{ profile.followers.count }} <span class="subtitle">Followers</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column " style="margin-right: 200px;">
+                <div class="content">
+                    <div>
+                        <p class="title">{{ profile.followings.count }} <span class="subtitle">Following</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-full ml-6">
+                <div class="content">
+                    <p class="subtitle">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem, sunt
+                        maxime ex optio non voluptate!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs is-centered">
+            <ul>
+                <li class="is-active">
+                    <a>Posts</a>
+                </li>
+                <li>
+                    <a>Saved</a>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="columns is-mobile is-centered is-multiline">
+
+            {% for article in articles %}
+            <a href="{% url 'blog:article_detail' article.pk %}">
+                <div class="column ">
+                    <div class="">
+                        <figure class="image is-264x264">
+                            <img src="{{ article.thumb.url }}" alt="Image">
+                        </figure>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+ -->

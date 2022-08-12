@@ -1,0 +1,86 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column ">
+                <aside class="menu">
+                    <p class="title">
+                        Messages
+                    </p>
+                    <ul style="overflow-y: scroll; height:500px;" class="menu-list">
+                        {% for message in messages %}
+                        <a href="{% url 'direct:directs' message.user.username %}" class="{% if active_direct ==  message.user %}is-active {% endif %}">
+                        <div class="box">
+                            <article class="media">
+                                <div class="media-left">
+                                    <figure class="image is-64x64">
+                                        <img src="{{ message.user.profile.profile_picture.url }}" alt="Image">
+                                    </figure>
+                                </div>
+                                <div class="media-content">
+                                    <div class="content">
+                                        <p>
+                                            <strong>{{ message.user.username }}</strong>
+                                        </p>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </a>
+                        {% endfor %}
+                    </ul>
+                </aside>
+                <a href="{% url 'direct:search_user'%}" class="button is-success mt-3"> New message</a>
+            </div>
+
+
+            <div class="column" style="overflow-y: scroll; height:500px;">
+                {% for direct in directs %}
+                <div class="box">
+                    <article class="media">
+                        <div class="media-left">
+
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong>{{ direct.sender.profile.user }}</strong>  <strong> <small>{{ direct.date|date:'N d G:i'}}</small></strong>
+                                </p>
+                                <p>
+                                   {{ direct.body }}
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                {% endfor %}
+
+                <form action="{% url 'direct:send_direct' %}" method="POST">
+                    {% csrf_token%}
+                <article class="media">
+                    <div class="media-content">
+                        <input type="hidden" name="to_user" value="{{ active_direct }}">
+                        <div class="field">
+                            <p class="control">
+                                <textarea class="textarea" name="body" placeholder="Send message..."></textarea>
+                            </p>
+                        </div>
+                        <nav class="level">
+                            <div class="level-left">
+                                <div class="level-item">
+                                    <button class="button is-success" name="action">Send</button>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+   <form method="post" class="site-form has-background-light" style="margin-top: 200px">
+       {% csrf_token %}
+       <p class="content has-text-centered is-size-4 mb-4">Вы уверены, что хотите удалить пост? "{{ article }}"?</p>
+       <div class="has-text-centered">
+           <button type="submit" class="button is-primary">Да</button>
+           <a href="{% url 'blog:article_detail' article.pk %}" class='button is-danger'>Нет</a>
+       </div>
+   </form>
+{% endblock %}

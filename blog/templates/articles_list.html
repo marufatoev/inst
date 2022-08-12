@@ -1,0 +1,22 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<section class="u-align-center u-clearfix u-section-1" id="sec-968e">
+    {% for article in articles %}
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-expanded-width u-gallery u-layout-grid u-lightbox u-show-text-on-hover u-gallery-1">
+            <a href="{% url 'blog:article_detail' article.pk %}">
+                <div class="u-gallery-inner u-gallery-inner-1">
+                    <div class="u-effect-fade u-gallery-item">
+                        <div class="u-back-slide" data-image-width="1080" data-image-height="1325">
+                            <img class="u-back-image u-expanded" src="{{ article.thumb.url }}">
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</section>
+
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base_layout.html' %}
+
+{% block auth %}
+<section class="section sc1">
+    <div class="columns mx-6" style="margin-top: 6%">
+        <div class="column is-4">
+            <div class="box has-background-info-light">
+                <form class="form  has-text-centered" method="post">
+                    <h1 class="title is-size-2 has-text-centered">Sign in</h1>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="field">
+                            <label class="label" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                            </label>
+                            <div class="control">
+                                {{ field }}
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    <button type="submit" class="button is-primary is-fullwidth">
+                        Submit
+                    </button>
+                    <div class="title is-5 mt-4">Don't have an account?</div>
+                    <a href="{% url 'users:sign_up' %}">Move to register -></a>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

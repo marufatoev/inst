@@ -1,0 +1,117 @@
+{% extends 'base_layout.html'%}
+{% block content %}
+
+<body>
+    <div class="main_story">
+        <img src="./images/CSS IN ONE VIDOE.png" alt="" id="story" />
+    </div>
+    <main>
+        <div class="post_story">
+            <div class="stories">
+                <!-- USER STORIES STARTS HERE -->
+
+                {% for story in stories %}
+                <div class="story">
+                    <img src="{{story.story.url}}" alt="" id="story_image" />
+                </div>
+                {% endfor %}
+                <!-- USER STORIES ENDS HERE -->
+            </div>
+            <div class="posts">
+                <!-- USER POSTS STARTS HERE -->
+                {% for article in articles %}
+                <a href="{% url 'blog:article_detail' article.pk %}">
+                    <div id="post">
+                        <div id="post_header">
+                            <img src="{{article.thumb.url}}" alt="" srcset="" />
+                            <h4 id="post_user">{{article.user}}</h4>
+                        </div>
+                        <img src="{{post.image.url}}" alt="" id="user_post" />
+                        <div class="lower">
+                            {% if user not in article.likes.all and user not in article.dislikes.all %}
+                            <div class="columns">
+                                <div class="column is-1">
+                                    <form action="{% url 'blog:article_like' article.pk %}" method="post"
+                                        class="has-text-right">
+                                        {% csrf_token %}
+                                        <button type="submit" class="button">
+                                            <ion-icon name="thumbs-up-outline"></ion-icon>
+                                            <span class="ml-2">{{ article.total_likes }}</span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="column is-1">
+                                    <form action="{% url 'blog:article_dislike' article.pk %}" method="post"
+                                        class="has-text-right">
+                                        {% csrf_token %}
+                                        <button type="submit" class="button">
+                                            <ion-icon name="thumbs-down-outline"></ion-icon>
+                                            <span class="ml-2">{{ article.total_dislikes }}</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endif %}
+
+
+                            {% if user in article.likes.all and user not in article.dislikes.all %}
+                            <div class="columns">
+                                <div class="column is-1">
+                                    <form action="{% url 'blog:article_like' article.pk %}" method="post"
+                                        class="has-text-right">
+                                        {% csrf_token %}
+                                        <button type="submit" class="button is-success">
+                                            <ion-icon name="thumbs-up-outline"></ion-icon>
+                                            <span class="ml-2">{{ article.total_likes }}</span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="column is-1">
+                                    <form action="{% url 'blog:article_dislike' article.pk %}" method="post"
+                                        class="has-text-right">
+                                        {% csrf_token %}
+                                        <button type="submit" class="button">
+                                            <ion-icon name="thumbs-down-outline"></ion-icon>
+                                            <span class="ml-2">{{ article.total_dislikes }}</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {% if user not in article.likes.all and user in article.dislikes.all %}
+                            <div class="columns">
+                                <div class="column is-1">
+                                    <form action="{% url 'blog:article_like' article.pk %}" method="post"
+                                        class="has-text-right">
+                                        {% csrf_token %}
+                                        <button type="submit" class="button">
+                                            <ion-icon name="thumbs-up-outline"></ion-icon>
+                                            <span class="ml-2">{{ article.total_likes }}</span>
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="column is-1">
+                                    <form action="{% url 'blog:article_dislike' article.pk %}" method="post"
+                                        class="has-text-right">
+                                        {% csrf_token %}
+                                        <button type="submit" class="button is-danger">
+                                            <ion-icon name="thumbs-down-outline"></ion-icon>
+                                            <span class="ml-2">{{ article.total_dislikes }}</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+                <!-- USER POST ENDS HERE -->
+            </div>
+        </div>
+    </main>
+</body>
+{% endblock %}
+
+</html>
