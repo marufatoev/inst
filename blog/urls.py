@@ -16,4 +16,5 @@ urlpatterns = [
     path('search/',views.search,name="search"),
     path('follow/<int:id>/<str:username>', views.follow, name='follow'),
     path('home', views.home, name='home'),
+    path('favorite/<int:pk>', views.favorite, name='favorite'),
 ]

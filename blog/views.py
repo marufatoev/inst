@@ -17,6 +17,7 @@ def home(request):
 
 def article_detail(request, pk):
     article = Article.objects.get(pk=pk)
+    favorited = False
     if request.method == 'POST':
         form = forms.CommentForm(request.POST)
         if form.is_valid():
@@ -24,10 +25,16 @@ def article_detail(request, pk):
             instance.user = request.user
             instance.article = article
             instance.save()
+        #Favorite color conditionals
+        if request.user.is_authenticated:
+            profile = Profile.objects.get(user=request.user)
+            #for the color of the favorite button
+            if profile.favorites.filter(pk=pk).exists():
+                favorited = True
             return redirect('blog:article_detail', pk=pk)
 
     form = forms.CommentForm()  
-    return render(request, 'article_detail.html', {'article': article, 'form':form})
+    return render(request, 'article_detail.html', {'article': article, 'form':form, 'favorited': favorited})
 
 
 @login_required(login_url='/users/sign_in')
@@ -136,3 +143,15 @@ def follow(request, id, username):
 def direct(request):
     return render(request, 'direct.html')
 
+
+def favorite(request, pk):
+    user = request.user
+    post = Article.objects.get(pk=pk)
+    profile = Profile.objects.get(user=user)
+    
+    if profile.favorites.filter(pk=pk).exists():
+        profile.favorites.remove(post)
+    else:
+        profile.favorites.add(post)
+        return redirect('blog:home')
+    return render(request, 'home.html', {'post': post})

@@ -1,4 +1,3 @@
-from distutils.command.upload import upload
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -39,6 +38,7 @@ class Profile(models.Model):
     followers = models.ManyToManyField(User, related_name="followers", blank=True)
     followings = models.ManyToManyField(User, related_name="followings", blank=True)
     profile_picture = models.ImageField(default='profile_picture.jpg', null=True) 
+    favorites = models.ManyToManyField(Article)
         
     def __str__(self):
         return self.user.username
