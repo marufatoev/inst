@@ -4,52 +4,60 @@
 </head>
 
 <body>
-  <main>
-    <div class="post_story">
-      <div class="posts">
-        <!-- USER POSTS STARTS HERE -->
-        {% for profile in profiles %}
-        {% if user in profile.followers.all %}
-        <div id="post">
-          <div id="post_header" style="padding: 0 60px">
-            <img src="{{profile.profile_picture.url}}" alt="" srcset="" />
-            <a href="/profile/{{profile.id}}">
-              <h4 id="post_user" style="font-weight: 900">
-                {{profile.user}}
-              </h4>
-            </a>
-          </div>
 
-          <div class="lower">
-            <a href="/follow/{{profile.id}}/{{username}}" class="text-center btn btn-light text-dark" id="like">
-              unfollow
-            </a>
-          </div>
+  <section class="section">
+    {% for profile in profiles %}
+    {% if user in profile.followers.all %}
+    <div class="columns is-mobile is-centered is-half">
+      <a href="{% url 'blog:profile' profile.id  %}">
+        <div class="column is-1">
+          <figure class="image is-64x64 is-rounded">
+            <img src="{{profile.profile_picture.url}}" class="is-rounded" alt="Image">
+          </figure>
         </div>
-        {% else %}
-        <div id="post">
-          <div id="post_header" style="padding: 0 60px">
-            <img src="{{profile.profile_picture.url}}" alt="" srcset="" />
-            <a href="/profile/{{profile.id}}">
-              <h4 id="post_user" style="font-weight: 900">
-                {{profile.user}}
-              </h4>
-            </a>
-          </div>
-
-          <div class="lower">
-            <a href="/follow/{{profile.id}}/{{username}}" class="text-center btn btn-danger" id="like">
-              Follow
-            </a>
-          </div>
-        </div>
-        {% endif %} 
-        {% endfor %}
-        <!-- USER POST ENDS HERE -->
+        <div class="column is-1">
+          <h4 id="post_user" style="font-weight: 900">
+            {{profile.user}}
+          </h4>
+      </a>
+    </div>
+    <div class="column is-2">
+      <div class="button is-info mt-2 ">
+        <a href="/follow/{{profile.id}}/{{profile}}" class="text-center btn btn-light text-dark" id="like">
+          <span class="has-text-dark">unfollow</span>
+        </a>
       </div>
     </div>
-  </main>
-</body>
+    </div>
+    {% else %}
+    <div class="columns is-mobile is-centered">
+      <div class="column is-1">
+        <figure class="image is-64x64 ">
+          <img src="{{profile.profile_picture.url}}" class="is-rounded" alt="Image">
+        </figure>
+      </div>
+      <div class="column is-1">
+        <a href="{% url 'blog:profile' profile.id%}">
+          <h4 id="post_user" style="font-weight: 900">
+            {{profile.user}}
+          </h4>
+        </a>
+      </div>
+      <div class="column is-2">
+        <div class="button is-danger">
+          <a href="/follow/{{profile.id}}/{{profile}}" class="text-center btn btn-danger" id="like">
+            <span class="has-text-dark"> Follow </span>
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <!-- USER POST ENDS HERE -->
+    </div>
 
-</html>
+
+  </section>
+
+</body>
 {% endblock %}

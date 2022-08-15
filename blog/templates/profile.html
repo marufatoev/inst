@@ -14,92 +14,86 @@
 
         <div class="profile-user-settings">
 
-            <h2 class="title is-1">{{ profile.user }}</h2>
+            <h2 class="title is-1">{{ profile.user }}
+                {% if user in profile.followers.all %}
+                <div class="button is-info mt-2 ">
+                    <a href="/follow/{{profile.id}}/{{profile}}" class="text-center btn btn-light text-dark" id="like">
+                        <span class="has-text-dark">unfollow</span>
+                    </a>
+                </div>
+                {% else %}
+                <div class="button is-danger">
+                    <a href="/follow/{{profile.id}}/{{profile}}" class="text-center btn btn-danger" id="like">
+                        <span class="has-text-dark"> Follow </span>
+                    </a>
+                </div>
+                {% endif %}
+            </h2>
 
-            {% if user in profile.followers.all %}
-            <div class="lower">
-                <a href="/follow/{{profile.id}}/{{username}}" class="text-center btn btn-light text-dark" id="like">
-                    unfollow
-                </a>
+            <div class="profile-stats">
+                <br>
+                <ul>
+                    <li><span class="profile-stat-count">{{ profile.post_num }}</span> Публикаций</li>
+                    <li><span class="profile-stat-count">{{ profile.followers.count }}</span>Подписчиков </li>
+                    <li><span class="profile-stat-count">{{ profile.followings.count }}</span> Подписки</li>
+                </ul>
+
             </div>
-        </div>
-        {% else %}
-        <div id="post">
-            <a href="/profile/{{profile.id}}">
-                <h4 id="post_user" style="font-weight: 900">
-                    <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog"
-                            aria-hidden="true"></i></button>
-        </div>
-        <div class="lower">
-            <a href="/follow/{{profile.id}}/{{username}}" class="text-center btn btn-danger" id="like">
-                Follow
-            </a>
-        </div>
-        {% endif %}
 
-        <div class="profile-stats">
-            <br>
-            <ul>
-                <li><span class="profile-stat-count">{{ post_num }}</span> Публикаций</li>
-                <li><span class="profile-stat-count">{{ profile.followers.count }}</span>Подписчиков </li>
-                <li><span class="profile-stat-count">{{ profile.followings.count }}</span> Подписки</li>
-            </ul>
-
-        </div>
-
-        <div class="profile-bio">
-            <br>
-            <!-- <p>🖥Курсы по:
+            <div class="profile-bio">
+                <br>
+                <!-- <p>🖥Курсы по:
 
             </p> -->
 
+            </div>
+
         </div>
+        <!-- End of profile section -->
+
 
     </div>
-    <!-- End of profile section -->
+    <!-- End of container -->
 
+    </header>
+    <br><br>
+    <main>
+        <br>
+        <div class="container">
 
-</div>
-<!-- End of container -->
+            <div class="gallery">
+                {% for article in articles %}
+                <a href="{% url 'blog:article_detail' article.pk %}">
+                    <div class="gallery-item" tabindex="0">
 
-</header>
-<br><br>
-<main>
-    <br>
-    <div class="container">
+                        <img src="{{ article.thumb.url }}" class="gallery-image" alt="">
 
-        <div class="gallery">
-            {% for article in articles %}
-            <a href="{% url 'blog:article_detail' article.pk %}">
-                <div class="gallery-item" tabindex="0">
+                        <div class="gallery-item-info">
 
-                    <img src="{{ article.thumb.url }}" class="gallery-image" alt="">
+                            <ul>
+                                <li class="gallery-item-likes"><span class="visually-hidden">Лайки:</span><i
+                                        class="fas fa-heart" aria-hidden="true"></i> {{ article.total_likes }}</li>
+                                <li class="gallery-item-comments"><span class="visually-hidden">Комменты:</span><i
+                                        class="fas fa-comment" aria-hidden="true">{{ article.total_comment }}</i>
+                                </li>
+                            </ul>
 
-                    <div class="gallery-item-info">
-
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Лайки:</span><i
-                                    class="fas fa-heart" aria-hidden="true"></i> {{ article.total_likes }}</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Комменты:</span><i
-                                    class="fas fa-comment" aria-hidden="true">{{ article.total_comment }}</i> </li>
-                        </ul>
+                        </div>
 
                     </div>
+                </a>
+                {% endfor %}
+                <!-- End of gallery -->
+                <div class="loader"></div>
 
-                </div>
-            </a>
-            {% endfor %}
-            <!-- End of gallery -->
-            <div class="loader"></div>
+            </div>
+            <!-- End of container -->
 
-        </div>
-        <!-- End of container -->
-
-</main>
+    </main>
 
 
 
-<!-- <section class="section">
+    <!-- <section class="section">
     <div class="container">
         <div class="tabs is-centered">
             <ul>
@@ -150,4 +144,4 @@
             </div>
         </div> -->
 
-{% endblock %}
+    {% endblock %}

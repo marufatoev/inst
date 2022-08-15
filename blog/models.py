@@ -33,6 +33,9 @@ class Comment(models.Model):
     def __str__(self):
         return f'{self.article} - {self.body[:5]}'
     
+    def total_comment(self):
+        return self.comment.count() 
+    
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     followers = models.ManyToManyField(User, related_name="followers", blank=True)

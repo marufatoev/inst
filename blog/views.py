@@ -105,20 +105,34 @@ def edit_comment(request, pk):
         return redirect('blog:article_detail', pk=comment.article.pk)
     return render(request, 'comment_edit.html', {"form": form, 'article':comment.article})
 
-def my_profile(request):
+def my_profile(request, ):
     profile = Profile.objects.get(user=request.user)
     articles = Article.objects.filter(author=request.user)
     post_num = articles.count()
-    return render(request, 'my_profile.html', {'profile': profile, 'articles': articles, 'post_num': post_num})
+    return render(request, 
+    'my_profile.html', 
+    {'profile': profile, 
+    'articles': articles,
+    'post_num': post_num, 
+    'favorite': favorite})
 
-def profile(request,id=None,):
+
+def profile(request, id=None,):
+    profile = Profile.objects.get(id=id)
+    login_profile = Profile.objects.get(user=request.user)
     if id is not None:
         profile_id = Profile.objects.get(id=id)
-        posts = Article.objects.filter(author=request.user)
-        posts_num = posts.count()
+        articles = Article.objects.filter(author=request.user)
+        posts_num = articles.count()
         profile = Profile.objects.get(user=request.user)
         profileimage = profile.profile_picture.url
-    return render(request,'profile.html',{'profile':profile_id,'profileimage':profileimage,'profile_of_user':True,'posts':posts,'posts_num':posts_num})
+    if request.user in profile.followers.all():
+        profile.followers.remove(request.user)
+        login_profile.followings.remove(profile.user)
+    else:   
+        profile.followers.add(request.user)
+        login_profile.followings.add(profile.user)
+    return render(request,'profile.html',{'profile':profile_id,'profileimage':profileimage,'profile_of_user':True,'articles':articles,'posts_num':posts_num})
 
 def search(request):
     if not request.user.is_authenticated:

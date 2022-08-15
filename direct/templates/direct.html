@@ -7,6 +7,7 @@
                 <aside class="menu">
                     <p class="title">
                         Messages
+                        <a href="{% url 'direct:search_user'%}" class="button is-success mt-2"> New message</a>
                     </p>
                     <ul style="overflow-y: scroll; height:500px;" class="menu-list">
                         {% for message in messages %}
@@ -31,7 +32,7 @@
                         {% endfor %}
                     </ul>
                 </aside>
-                <a href="{% url 'direct:search_user'%}" class="button is-success mt-3"> New message</a>
+
             </div>
 
 
