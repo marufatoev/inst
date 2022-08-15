@@ -1,117 +1,79 @@
 {% extends 'base_layout.html'%}
 {% block content %}
-
-<body>
-    <div class="main_story">
-        <img src="./images/CSS IN ONE VIDOE.png" alt="" id="story" />
-    </div>
-    <main>
-        <div class="post_story">
-            <div class="stories">
-                <!-- USER STORIES STARTS HERE -->
-
-                {% for story in stories %}
-                <div class="story">
-                    <img src="{{story.story.url}}" alt="" id="story_image" />
-                </div>
-                {% endfor %}
-                <!-- USER STORIES ENDS HERE -->
-            </div>
-            <div class="posts">
-                <!-- USER POSTS STARTS HERE -->
-                {% for article in articles %}
-                <a href="{% url 'blog:article_detail' article.pk %}">
-                    <div id="post">
-                        <div id="post_header">
-                            <img src="{{article.thumb.url}}" alt="" srcset="" />
-                            <h4 id="post_user">{{article.user}}</h4>
-                        </div>
-                        <img src="{{post.image.url}}" alt="" id="user_post" />
-                        <div class="lower">
-                            {% if user not in article.likes.all and user not in article.dislikes.all %}
-                            <div class="columns">
-                                <div class="column is-1">
-                                    <form action="{% url 'blog:article_like' article.pk %}" method="post"
-                                        class="has-text-right">
-                                        {% csrf_token %}
-                                        <button type="submit" class="button">
-                                            <ion-icon name="thumbs-up-outline"></ion-icon>
-                                            <span class="ml-2">{{ article.total_likes }}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                                <div class="column is-1">
-                                    <form action="{% url 'blog:article_dislike' article.pk %}" method="post"
-                                        class="has-text-right">
-                                        {% csrf_token %}
-                                        <button type="submit" class="button">
-                                            <ion-icon name="thumbs-down-outline"></ion-icon>
-                                            <span class="ml-2">{{ article.total_dislikes }}</span>
-                                        </button>
-                                    </form>
-                                </div>
+{% for article in articles %}
+<div style="margin-left: 380px; margin-top: 10px; margin-bottom: 20px;">
+    <a href="{% url 'blog:article_detail' article.pk %}">
+        <blockquote class="instagram-media ; is-centered" data-instgrm-captioned="" data-instgrm-permalink=""
+            data-instgrm-version="12"
+            style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 3px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
+            <div style="padding:16px;"> <a href=""
+                    style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; ;"
+                    target="_blank">
+                    <div style=" display: flex; flex-direction: row; align-items: center;">
+                        <figure class="image is-64x64 is-rounded">
+                            <img class="is-rounded" src="{{ user.profile.profile_picture.url }}">
+                        </figure>
+                        <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;">
+                            <div class="title" style="height: 75px; left:50px;padding-right: 1o;padding-right: 311px;">
+                                {{ article.author}}
                             </div>
-                            {% endif %}
-
-
-                            {% if user in article.likes.all and user not in article.dislikes.all %}
-                            <div class="columns">
-                                <div class="column is-1">
-                                    <form action="{% url 'blog:article_like' article.pk %}" method="post"
-                                        class="has-text-right">
-                                        {% csrf_token %}
-                                        <button type="submit" class="button is-success">
-                                            <ion-icon name="thumbs-up-outline"></ion-icon>
-                                            <span class="ml-2">{{ article.total_likes }}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                                <div class="column is-1">
-                                    <form action="{% url 'blog:article_dislike' article.pk %}" method="post"
-                                        class="has-text-right">
-                                        {% csrf_token %}
-                                        <button type="submit" class="button">
-                                            <ion-icon name="thumbs-down-outline"></ion-icon>
-                                            <span class="ml-2">{{ article.total_dislikes }}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                            {% endif %}
-
-                            {% if user not in article.likes.all and user in article.dislikes.all %}
-                            <div class="columns">
-                                <div class="column is-1">
-                                    <form action="{% url 'blog:article_like' article.pk %}" method="post"
-                                        class="has-text-right">
-                                        {% csrf_token %}
-                                        <button type="submit" class="button">
-                                            <ion-icon name="thumbs-up-outline"></ion-icon>
-                                            <span class="ml-2">{{ article.total_likes }}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                                <div class="column is-1">
-                                    <form action="{% url 'blog:article_dislike' article.pk %}" method="post"
-                                        class="has-text-right">
-                                        {% csrf_token %}
-                                        <button type="submit" class="button is-danger">
-                                            <ion-icon name="thumbs-down-outline"></ion-icon>
-                                            <span class="ml-2">{{ article.total_dislikes }}</span>
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                            {% endif %}
                         </div>
                     </div>
+                    <figure class="image image is-4by3">
+                        <img src="{{article.thumb.url}}" alt="" id="user_post">
+                    </figure>
                 </a>
-                {% endfor %}
-                <!-- USER POST ENDS HERE -->
-            </div>
-        </div>
-    </main>
-</body>
-{% endblock %}
+                <div style="padding-top: 8px;"><a href=""
+                        style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; ;"
+                        target="_blank">
 
-</html>
+                        <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;">
+                            <div>
+                                <div
+                                    style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);">
+                                </div>
+                                <div
+                                    style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;">
+                                </div>
+                                <div
+                                    style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);">
+                                </div>
+                            </div>
+                            <div style="margin-left: 8px;">
+                                <div
+                                    style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;">
+                                </div>
+                                <div
+                                    style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)">
+                                </div>
+                            </div>
+                            <div style="margin-left: auto;">
+                                <div
+                                    style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);">
+                                </div>
+                                <div
+                                    style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);">
+                                </div>
+                                <div
+                                    style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <p style=" margin:8px 0 0 0; padding:0 4px;"> <a href=""
+                            style=" color:#000; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none; word-wrap:break-word;"
+                            target="_blank"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus aliquam
+                            culpa
+                            id
+                            quaerat repellendus molestiae! Accusamus!
+                        </a></p>
+                    <br><br>
+                </div>
+            </div>
+        </blockquote>
+    </a>
+</div>
+
+{% endfor %}
+{% endblock %}
