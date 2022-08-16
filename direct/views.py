@@ -45,11 +45,11 @@ def directs(request, username):
     user = request.user
     messages = Message.get_messages(user=user)
     active_direct = username
-    directs = Message.objects.filter(user=user, recipient=username)
+    directs = Message.objects.filter(user=user, recipient_id=user.id)
     directs.update(is_read=True)
 
     for message in messages:
-            if message['user'].username == username:
+            if message['user'].username  == username:
                 message['unread'] = 0   
                 
     return render(request, 'direct.html', {'directs': directs, 'messages': messages,'active_direct': active_direct,})
