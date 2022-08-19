@@ -122,7 +122,7 @@ def profile(request, id=None,):
     login_profile = Profile.objects.get(user=request.user)
     if id is not None:
         profile_id = Profile.objects.get(id=id)
-        articles = Article.objects.filter(author=request.user)
+        articles = Article.objects.filter(author_id=request.user)
         posts_num = articles.count()
         profile = Profile.objects.get(user=request.user)
         profileimage = profile.profile_picture.url

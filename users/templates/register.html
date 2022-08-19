@@ -3,7 +3,7 @@
 {% block content %}
 <div class="columns is-centered" style="margin-top: 4%">
     <div class="column is-4">
-        <div class="box has-background-info-light">
+        <div class="box">
             <form class="form has-text-centered" method="post">
                 <h1 class="title is-size-2 has-text-centered has-text-info">Зарегистрироваться</h1>
                 {% csrf_token %}
@@ -13,14 +13,12 @@
                     {{ field }}
                 </div>
                 {% endfor %}
-                <button type="submit" class="button is-info is-fullwidth is-rounded">
+                <button type="submit" class="button is-info is-fullwidth">
                     Зарегистрироваться
                 </button>
                 <hr class="has-background-info">
-                <div class="is-size-5 has-text-info">Есть акаунт ?</div>
-                <a href="{% url 'users:sign_in' %}" class="button is-ghost">
-                    Тогда войдите.
-                </a>
+                <div class="is-size-5 mt-2">Есть акаунт? <a href="{% url 'users:sign_in' %}">Войти</a></div>
+                
             </form>
         </div>
     </div>

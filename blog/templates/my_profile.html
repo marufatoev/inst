@@ -16,7 +16,7 @@
 
             <h2 class="profile-user-name">{{ profile.user }}</h2>
 
-            <button class="btn profile-edit-btn  ">Редактировать профиль</button>
+            <button class="btn profile-edit-btn" href="{% url 'users:edit_profile'%}">Редактировать профиль</button>
 
             <button class="btn profile-settings-btn" aria-label="profile settings"><i class="fas fa-cog"
                     aria-hidden="true"></i></button>
@@ -88,8 +88,8 @@
             <div class="gallery-item-info">
 
                 <ul>
-                    <li class="gallery-item-likes"><span class="visually-hidden">Лайки:</span><i
-                            class="fas fa-heart" aria-hidden="true"></i> {{ article.total_likes }}</li>
+                    <li class="gallery-item-likes"><span class="visually-hidden">Лайки:</span><i class="fas fa-heart"
+                            aria-hidden="true"></i> {{ article.total_likes }}</li>
                     <li class="gallery-item-comments"><span class="visually-hidden">Комменты:</span><i
                             class="fas fa-comment" aria-hidden="true">{{ article.total_comment }}</i> </li>
                 </ul>
